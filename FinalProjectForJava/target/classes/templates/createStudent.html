@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Students</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+    </head>
+    <body class="body-action">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()">✖️</button>
+            <h2 class="title-create">Create Student</h2>
+            <div class="divider"></div>
+            <form th:action="@{/saveStudent}" th:object="${student}" method="post">
+                <label for="studentName">Student's Name</label>
+                <input type="text" id="studentName" th:field="*{name}" required>
+
+                <label for="gender">Gender</label>
+                <select id="gender" th:field="*{gender}" required>
+                    <option value="">select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="date">Date</label>
+                <input type="date" id="date" th:field="*{date}" required>
+
+                <label for="remark">Remark</label>
+                <input type="text" id="remark" th:field="*{remark}">
+
+                <button type="submit" class="create-btn">Create</button>
+            </form>
+        </div>
+    <script>
+        function closeModal() {
+            window.location.href = "/students";
+        }
+
+//            document.getElementById("studentForm").addEventListener("submit", async function (e) {
+//                e.preventDefault();
+//
+//                const student = {
+//                    name: document.getElementById("studentName").value,
+//                    gender: document.getElementById("gender").value,
+//                    dateOfBirth: document.getElementById("date").value,
+//                    remark: document.getElementById("remark").value
+//                };
+//
+//                try {
+//                    const response = await fetch("/api/students", {
+//                        method: "POST",
+//                        headers: {
+//                            "Content-Type": "application/json"
+//                        },
+//                        body: JSON.stringify(student)
+//                    });
+//
+//                    if (!response.ok) {
+//                        throw new Error("Failed to create student");
+//                    }
+//
+//                    alert("Student created successfully!");
+//                    window.location.href = "/students"; // Redirect back to the list
+//
+//                } catch (error) {
+//                    alert("Error: " + error.message);
+//                }
+//            });
+    </script>
+</body>
+</html>

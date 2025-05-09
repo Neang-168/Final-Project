@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Book</title>
+    <link rel="stylesheet" href="/cssStyle.css">
+</head>
+
+<body class="body-action">
+    <div class="modal">
+        <button class="close-btn" onclick="closeModal()">✖️</button>
+        <h2 class="title-view">Book Details</h2>
+        <div class="divider"></div>
+
+        <div class="book-details">
+            <p><strong>Title:</strong> <span th:text="${book.title}"></span></p>
+            <p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+            <p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
+            <p><strong>Total Books:</strong> <span th:text="${book.total}"></span></p>
+            <p><strong>Available Books:</strong> <span th:text="${book.available}"></span></p>
+            <p><strong>Category:</strong> <span th:text="${book.category}"></span></p>
+            <p><strong>Remark:</strong> <span th:text="${book.remark}"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function closeModal() {
+            window.location.href = "/books";  // Redirect back to the books list after closing
+        }
+    </script>
+</body>
+</html>
+

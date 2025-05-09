@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit Borrower</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+    </head>
+    <body class="body-action">
+        <div class="modal">
+            <button class="close-btn" onclick="window.location.href = '/borrowers'">✖️</button>
+            <h2 class="title-create">Edit Borrower</h2>
+            <div class="divider"></div>
+
+            <form th:action="@{/borrowers/update}" th:object="${borrowedBook}" method="post">
+                <input type="hidden" th:field="*{id}" />
+
+                <!-- Student -->
+                <label for="studentId">Student:</label>
+                <select id="studentId" th:field="*{student.id}">
+                    <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+                </select><br><br>
+
+                <!-- Book -->
+                <label for="bookId">Book:</label>
+                <select id="bookId" th:field="*{book.id}">
+                    <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"></option>
+                </select><br><br>
+
+                <!-- Borrow Date -->
+                <label for="borrowDate">Borrow Date:</label>
+                <input type="date" id="borrowDate" th:field="*{borrowDate}"><br><br>
+
+                <!-- Return Date -->
+                <label for="returnDate">Return Date:</label>
+                <input type="date" id="returnDate" th:field="*{returnDate}"><br><br>
+
+                <!-- Status -->
+                <label for="status">Status:</label>
+                <select id="status" th:field="*{status}">
+                    <option value="BORROWED">Borrowed</option>
+                    <option value="RETURNED">Returned</option>
+                </select><br><br>
+
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </body>
+</html>
+

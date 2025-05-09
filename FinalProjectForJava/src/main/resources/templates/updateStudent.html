@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Update Student</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    </head>
+    <body>
+    <center>
+        <div class="modal">
+            <button class="close-btn" onclick="window.location.href = '/students'">✖️</button>
+            <h2 class="title-update">Update Student</h2>
+            <div class="divider"></div>
+            <form th:action="@{/updateStudent}" th:object="${student}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" th:field="*{name}" required />
+
+                <label for="gender">Gender:</label>
+                <select id="gender" th:field="*{gender}">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="date">Date:</label>
+                <input type="date" id="date" th:field="*{date}" required />
+
+                <label for="remark">Remark:</label>
+                <input type="text" id="remark" th:field="*{remark}" />
+
+                <button type="submit" class="update-btn">Update</button>
+            </form>
+        </div>
+    </center>
+</body>
+</html>

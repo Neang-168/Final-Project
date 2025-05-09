@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Library Management</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <aside class="sidebar">
+                <img src="https://i0.wp.com/themedbook.com/wp-content/uploads/2019/02/logo-no-background-1.png?fit=1000%2C1000&ssl=1" alt="Logo" class="logo">
+                <ul class="nav-item">
+                    <li><a th:href="@{/dashboard}"><i class="fas fa-table-cells-large"></i> Dashboard</a></li>
+                    <li><a th:href="@{/students}"><i class="fas fa-users"></i> Students</a></li>
+                    <li><a th:href="@{/books}"><i class="fas fa-book"></i> Books</a></li>
+                    <li><a th:href="@{/borrowers}"><i class="fas fa-user-group"></i> Borrowers</a></li>
+                </ul>
+            </aside>
+            <main class="main">
+                <h1><center>Student Book Hub</center></h1>
+                <div class="search-create">
+                    <div class="left-group">
+                        <input type="text" id="searchInput" placeholder="Search.....">
+                    </div>
+                    <div class="buttons">
+                        <button class="create" onclick="window.location.href = '/create-borrower'">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Student’s Name</th>
+                            <th>Title</th>
+                            <th>Borrow Date</th>
+                            <th>Returne Date</th>
+                            <th>Returned?</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="borrower, iterStat : ${borrowedBooks}">
+                            <td th:text="${iterStat.count}"></td>
+                            <td th:text="${borrower.student != null ? borrower.student.name : 'Unknown Student'}"></td>
+                            <td th:text="${borrower.book != null ? borrower.book.title : 'Unknown Book'}"></td>
+                            <td th:text="${borrower.borrowDate}"></td>
+                            <td th:text="${borrower.returnDate}"></td>
+                            <td>
+                                <i th:if="${#strings.equalsIgnoreCase(borrower.status, 'returned')}" class="fas fa-check-circle" style="color: green;" >Yes</i>
+                                <i th:if="${!#strings.equalsIgnoreCase(borrower.status, 'returned')}" class="fas fa-times-circle" style="color: red;" >No</i>
+                            </td>
+                            <td>
+                                <a th:href="@{/borrowers/view/{id}(id=${borrower.id})}">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a th:href="@{/borrowers/edit/{id}(id=${borrower.id})}">
+                                    <i class="fas fa-pen-to-square"></i>
+                                </a>
+                                <a th:href="@{/borrowers/delete/confirm/{id}(id=${borrower.id})}">
+                                    <i class="fas fa-trash text-red"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                    <span th:text="${errorMessage}"></span>
+                </div>
+                <div class="pagination" id="pagination"></div>
+            </main>
+        </div>
+
+        <script>
+            const currentPath = window.location.pathname.split("/").pop();
+            document.querySelectorAll('.sidebar ul li a').forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+            //=========================Action Nav_bar===================================         
+            const navItems = document.querySelectorAll('.nav-item');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navItems.forEach(i => i.classList.remove('active')); // Remove from all
+                    item.classList.add('active'); // Add to clicked
+                });
+            });
+
+            const searchInput = document.getElementById("searchInput");
+            const tableRows = document.querySelectorAll("table tbody tr");
+
+            searchInput.addEventListener("input", function () {
+                const query = this.value.toLowerCase();
+
+                tableRows.forEach((row) => {
+                    const nameCell = row.querySelector("td:nth-child(2)");
+                    const nameText = nameCell.textContent.toLowerCase();
+
+                    if (nameText.includes(query)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+
+            const rowsPerPage = 5;
+            const table = document.querySelector("table tbody");
+            const rows = Array.from(table.querySelectorAll("tr"));
+            const pagination = document.getElementById("pagination");
+
+            let currentPage = 1;
+
+            function displayRows() {
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+
+                rows.forEach((row, index) => {
+                    row.style.display = index >= start && index < end ? "" : "none";
+                });
+            }
+
+            function setupPagination() {
+                const pageCount = Math.ceil(rows.length / rowsPerPage);
+                pagination.innerHTML = "";
+
+                for (let i = 1; i <= pageCount; i++) {
+                    const btn = document.createElement("button-p");
+                    btn.textContent = i;
+                    btn.className = i === currentPage ? "active" : "";
+                    btn.onclick = () => {
+                        currentPage = i;
+                        displayRows();
+                        setupPagination();
+                    };
+                    pagination.appendChild(btn);
+                }
+            }
+
+            displayRows();
+            setupPagination();
+        </script>
+    </body>
+</html>

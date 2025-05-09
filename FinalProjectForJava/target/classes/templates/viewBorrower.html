@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>View Book</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+    </head>
+
+    <body class="body-action">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()">✖️</button>
+            <h2 class="title-view">Borrower Details</h2>
+            <div class="divider"></div>
+            <div class="book-details">
+                <p><strong>ID:</strong> <span th:text="${borrower.id}"></span></p>
+                <p><strong>Student:</strong> <span th:text="${borrower.student.name}"></span></p>
+                <p><strong>Book:</strong> <span th:text="${borrower.book.title}"></span></p>
+                <p><strong>Borrow Date:</strong> <span th:text="${borrower.borrowDate}"></span></p>
+                <p><strong>Return Date:</strong> <span th:text="${borrower.returnDate}"></span></p>
+                <p><strong>Status:</strong> <span th:text="${borrower.status}"></span></p>
+            </div>
+        </div>
+
+        <script>
+            function closeModal() {
+                window.location.href = "/borrowers";  // Redirect back to the books list after closing
+            }
+        </script>
+    </body>
+</html>

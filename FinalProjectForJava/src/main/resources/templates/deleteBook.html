@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Book</title>
+    <link rel="stylesheet" href="/cssStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<center>
+    <div class="modal">
+        <button class="close-btn" onclick="window.location.href = '/books'">✖️</button>
+        <h1 class="title-delete">Delete Book</h1>
+        <div class="divider"></div>
+        <div class="text-center">
+            <p>Do you want to <strong>delete</strong> the book: <span th:text="${book.title}"></span>?</p>
+            <p>Please type <strong class="text-red">Delete</strong> to confirm.</p>
+        </div>
+
+        <!-- Hidden input to store book ID -->
+        <input type="hidden" id="bookId" th:value="${book.id}" />
+
+        <form id="deleteForm" th:action="@{/books/delete/{id}(id=${book.id})}" method="post" onsubmit="return handleDeleteBook(event)">
+            <input type="text" id="confirmInput" placeholder="please type Delete" required>
+            <button type="submit" class="btn">Delete</button>
+        </form>
+    </div>
+</center>
+
+<script>
+    function handleDeleteBook(event) {
+        event.preventDefault();
+
+        const input = document.getElementById("confirmInput").value.trim().toLowerCase();
+        const bookId = document.getElementById("bookId").value;
+
+        if (input !== "delete") {
+            alert("Please type 'Delete' correctly to confirm.");
+            return false;
+        }
+
+        fetch('/checkBorrowedBooksByBook/' + bookId)
+            .then(response => response.json())
+            .then(data => {
+                if (data.bookIsBorrowed) {
+                    alert("This book is currently borrowed and cannot be deleted.");
+                    window.location.href = "/books";
+                } else {
+                    fetch('/books/delete/' + bookId, {
+                        method: 'POST'
+                    })
+                    .then(() => {
+                        alert("Book deleted successfully.");
+                        window.location.href = "/books";
+                    })
+                    .catch(err => {
+                        alert("Error deleting book.");
+                        console.error(err);
+                        window.location.href = "/books";
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Server error. Please try again.");
+                window.location.href = "/books";
+            });
+
+        return false;
+    }
+</script>
+</body>
+</html>

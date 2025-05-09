@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Delete Student</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+    <body>
+    <center>
+        <div class="modal">
+            <button class="close-btn" onclick="window.location.href = '/students'">✖️</button>
+            <h1 class="title-delete">Delete Student</h1>
+            <div class="divider"></div>
+            <div class="text-center">
+                <p>Do you want to <strong>delete</strong> the student: <span th:text="${student.name}"></span>?</p>
+                <p>Please type <strong class="text-red">Delete</strong> to confirm.</p>
+            </div>
+
+            <!-- Hidden input to store student ID -->
+            <input type="hidden" id="studentId" th:value="${student.id}" />
+
+            <form id="deleteForm" th:action="@{/students/delete/{id}(id=${student.id})}" method="post" onsubmit="return handleDelete(event)">
+                <input type="text" id="confirmInput" placeholder="please type Delete" required>
+                <button type="submit" class="btn">Delete</button>
+            </form>
+        </div>
+    </center>
+
+    <script>
+        function handleDelete() {
+            const input = document.getElementById("confirmInput").value.trim().toLowerCase();
+            const studentId = document.getElementById("studentId").value;
+
+            if (input !== "delete") {
+                alert("Please type 'Delete' correctly to confirm.");
+                return;
+            }
+
+            fetch('/checkBorrowedBooks/' + studentId)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.hasBorrowedBooks) {
+                            alert("This student has borrowed books and cannot be deleted.");
+                            window.location.href = "/students";
+                        } else {
+                            // Student can be deleted – send DELETE via fetch or form programmatically
+                            fetch('/students/delete/' + studentId, {
+                                method: 'POST'
+                            })
+                                    .then(() => {
+                                        alert("Student deleted successfully.");
+                                        window.location.href = "/students";
+                                    })
+                                    .catch(err => {
+                                        alert("Error deleting student.");
+                                        console.error(err);
+                                        window.location.href = "/students";
+                                    });
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Server error. Please try again.");
+                        window.location.href = "/students";
+                    });
+        }
+
+    </script>
+</body>
+</html>

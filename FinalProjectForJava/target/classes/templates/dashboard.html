@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Library Management</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <aside class="sidebar">
+                <img src="https://i0.wp.com/themedbook.com/wp-content/uploads/2019/02/logo-no-background-1.png?fit=1000%2C1000&ssl=1" alt="Logo" class="logo">
+                <ul>
+                    <li><a th:href="@{/dashboard}"><i class="fas fa-table-cells-large"></i> Dashboard</a></li>
+                    <li><a th:href="@{/students}"><i class="fas fa-users"></i> Students</a></li>
+                    <li><a th:href="@{/books}"><i class="fas fa-book"></i> Books</a></li>
+                    <li><a th:href="@{/borrowers}"><i class="fas fa-user-group"></i> Borrowers</a></li>
+                </ul>
+            </aside>
+            <main class="main">
+                <h1><center>Student Book Hub</center></h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <i class="fas fa-users icon"></i>
+                        <div>
+                            <h2>Students</h2>
+                            <p th:text="${studentCount}">0</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <i class="fas fa-book icon"></i>
+                        <div>
+                            <h2>Books</h2>
+                            <p th:text="${bookCount}">0</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <i class="fas fa-user-group icon"></i>
+                        <div>
+                            <h2>Borrowers</h2>
+                            <p th:text="${borrowerCount}">0</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script>
+            const currentPath = window.location.pathname.split("/").pop();
+            document.querySelectorAll('.sidebar ul li a').forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        </script>
+    </body>
+</html>

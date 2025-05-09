@@ -1,0 +1,369 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: #ccc;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+/* ==========================================nav_bar================================================= */
+.sidebar {
+    width: 220px;
+    background: #1c005c;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sidebar ul li a {
+    padding: 15px;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: white; /* Default color is white */
+    text-decoration: none; /* Remove underline */
+}
+
+.sidebar .logo {
+    width: 150px;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    width: 100%;
+}
+
+.sidebar li {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.sidebar ul li a:hover {
+    color: #ff4b4b; /* Red when hovered */
+}
+
+/* Active state (when clicked) */
+.sidebar ul li a.active {
+    color: red; /* Red when active (clicked) */
+}
+.sidebar ul li a.active:hover {
+    color: red; /* Keep red even when hovering over the active item */
+}
+
+.main {
+    flex: 1;
+    background: #ccc;
+    padding: 20px;
+}
+
+.main h1 {
+    color: #2200c1;
+    font-size: 40px;
+    font-weight: bold;
+    border-bottom: 5px solid #2200c1;
+    display: block;
+    width: 100%;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.search-create {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.search-create input {
+    padding: 10px;
+    width: 250px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.search-create button {
+    background: #4400c1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+thead {
+
+    color: #2200c1;
+    background: #ece1f3;
+}
+
+tbody tr:nth-child(even) {
+    background: #eee9e9;
+}
+
+td i {
+    margin-right: 10px;
+    cursor: pointer;
+    color: #2200c1;
+}
+
+td i.fa-trash {
+    color: red;
+}
+
+.search-create .buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.search-create button {
+    background: #4400c1;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-create button.category {
+    background: #ab1723;
+}
+.search-create select.category {
+    background: #ffffff;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* ========================================== DashBoard ================================================= */
+.dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    background: #f7f7f7;
+    padding: 20px 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 250px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card .icon {
+    font-size: 40px;
+    color: #1c005c;
+}
+
+.card h2 {
+    font-size: 22px;
+    color: #1c005c;
+    margin-bottom: 5px;
+}
+
+.card p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 25px;
+    color: #ff6600;
+}
+/* ========================================== Pagination ================================================= */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.pagination button-p {
+    padding: 8px 12px;
+    border: none;
+    background-color: #4400c1;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination button-p.active {
+    background-color: red;
+}
+
+.pagination button-p:hover:not(.active) {
+    background-color: #5a2bdc;
+}
+
+
+
+/* ========================================== Create Student  ================================================= */
+
+body-action {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.modal {
+    background: #ffffff;
+    padding: 20px;
+    width: 500px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    position: relative;
+    margin-top: 50px;
+}
+
+.title-delete {
+    color: red;
+    text-align: center;
+}
+
+.title-detail {
+    color: blue;
+    text-align: center;
+}
+
+.title-update {
+    color: blue;
+    text-align: center;
+}
+
+.title-create {
+    color: blue;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-btn {
+    background-color: #4b0082;
+    color: white;
+}
+
+.update-btn {
+    background-color: #800080;
+    color: white;
+}
+
+.btn {
+    background-color: red;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    color: red;
+    border: 2px solid red;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: red;
+    color: white;
+}
+
+.divider {
+    height: 3px;
+    background-color: blue;
+    margin: 10px 0 20px 0; /* top, right/left, bottom spacing */
+    border-radius: 2px;
+}
+
+.student-info p {
+    margin: 8px 0;
+}
+
+.text-center {
+    text-align: center;
+}
+.text-red {
+    color: red;
+}
+

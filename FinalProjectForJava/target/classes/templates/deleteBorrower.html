@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Borrower</title>
+    <link rel="stylesheet" href="/cssStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <center>
+        <div class="modal">
+            <button class="close-btn" onclick="window.location.href = '/borrowers'">✖️</button>
+            <h1 class="title-delete">Delete Borrower</h1>
+            <div class="divider"></div>
+            <div class="text-center">
+                <p>Do you want to <strong>delete</strong> this borrow record for student: <span th:text="${borrower.student.name}"></span> and book: <span th:text="${borrower.book.title}"></span>?</p>
+                <p>Please type <strong class="text-red">Delete</strong> to confirm.</p>
+            </div>
+            <form th:action="@{/borrowers/delete/{id}(id=${borrower.id})}" method="post" onsubmit="return validateDelete()">
+                <input type="text" id="confirmInput" placeholder="please type Delete" required>
+                <button type="submit" class="btn">Delete</button>
+            </form>
+        </div>
+    </center>
+
+    <script>
+        function validateDelete() {
+            const input = document.getElementById("confirmInput").value.trim().toLowerCase();
+            if (input === "delete") {
+                return true;
+            } else {
+                alert("Please type 'Delete' correctly.");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
+

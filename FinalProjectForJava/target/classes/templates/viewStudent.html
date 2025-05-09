@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Student Detail</title>
+        <link rel="stylesheet" href="/cssStyle.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    </head>
+    <body>
+    <center>
+        <div class="modal">
+            <button class="close-btn" onclick="window.location.href = '/students'">✖️</button>
+            <h2 class="title-detail">Student Detail</h2>
+            <div class="divider"></div>
+            <div class="student-info">
+                <p><strong>No:</strong> <span th:text="${student.id}"></span></p>
+                <p><strong>Name:</strong> <span th:text="${student.name}"></span></p>
+                <p><strong>Gender:</strong> <span th:text="${student.gender}"></span></p>
+                <p><strong>Date:</strong> <span th:text="${student.date}"></span></p>
+                <p><strong>Remark:</strong> <span th:text="${student.remark}"></span></p>
+            </div>
+        </div>
+    </center>
+</body>
+</html>
+
